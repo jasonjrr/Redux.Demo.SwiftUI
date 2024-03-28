@@ -1,0 +1,24 @@
+{
+  "originHash" : "dd184b619a558be485ae26a3ac0e16f112a4c445068d6a0bb37afae00b5482cd",
+  "pins" : [
+    {
+      "identity" : "busyindicator",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:jasonjrr/BusyIndicator.git",
+      "state" : {
+        "revision" : "dd4d5e4160372accad6ff54beb69c3354c85f63b",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "combineext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CombineCommunity/CombineExt",
+      "state" : {
+        "revision" : "d7b896fa9ca8b47fa7bcde6b43ef9b70bf8c1f56",
+        "version" : "1.8.1"
+      }
+    }
+  ],
+  "version" : 3
+}
