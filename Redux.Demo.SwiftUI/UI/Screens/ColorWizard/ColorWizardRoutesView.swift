@@ -126,3 +126,11 @@ extension ColorWizardRoutesView {
     }
   }
 }
+
+#Preview {
+  AppDependencyContainerView { store in
+    await store.dispatch(action: .uiAction(.landingScreen(.onStartColorWizard)))
+  } content: {
+    ColorWizardRoutesView()
+  }
+}

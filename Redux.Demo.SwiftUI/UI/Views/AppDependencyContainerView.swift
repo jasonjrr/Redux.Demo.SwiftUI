@@ -27,8 +27,18 @@ struct AppDependencyContainerView<Content: View>: View {
   }
   
   private let content: () -> Content
+  private let startingActions: ((AppReduxStore) async -> Void)?
   
   init(@ViewBuilder content: @escaping () -> Content) {
+    self.startingActions = nil
+    self.content = content
+  }
+  
+  init(
+    startingActions: @escaping (AppReduxStore) async -> Void,
+    @ViewBuilder content: @escaping () -> Content
+  ) {
+    self.startingActions = startingActions
     self.content = content
   }
   
@@ -37,5 +47,8 @@ struct AppDependencyContainerView<Content: View>: View {
       .reduxStore(self.store)
       .busyIndicator(busyIndicatorService.busyIndicator)
       .environmentObject(colorService)
+      .task {
+        await self.startingActions?(self.store)
+      }
   }
 }
