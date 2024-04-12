@@ -38,6 +38,9 @@
 		6FB217AF2BBFA39C002FBA7F /* SignInCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB217AE2BBFA39C002FBA7F /* SignInCardView.swift */; };
 		6FB217B12BBFA3E3002FBA7F /* Color+SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB217B02BBFA3E3002FBA7F /* Color+SystemColors.swift */; };
 		6FB217B42BBFB776002FBA7F /* BusyIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 6FB217B32BBFB776002FBA7F /* BusyIndicator */; };
+		6FB7A3722BC9D03D009837D0 /* UIReducer+General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7A3712BC9D03D009837D0 /* UIReducer+General.swift */; };
+		6FB7A3742BC9D090009837D0 /* UIReducer+LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7A3732BC9D090009837D0 /* UIReducer+LandingScreen.swift */; };
+		6FB7A3762BC9D0CC009837D0 /* UIReducer+ColorWizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7A3752BC9D0CC009837D0 /* UIReducer+ColorWizard.swift */; };
 		6FCAABBB2BC0F79000B25FE8 /* PulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAABBA2BC0F79000B25FE8 /* PulseView.swift */; };
 		6FCAABBE2BC21C1000B25FE8 /* ColorWizardRoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAABBD2BC21C1000B25FE8 /* ColorWizardRoutesView.swift */; };
 		6FCAABC12BC21CCD00B25FE8 /* ColorWizardConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAABC02BC21CCD00B25FE8 /* ColorWizardConfiguration.swift */; };
@@ -96,6 +99,9 @@
 		6FB217AC2BBFA340002FBA7F /* EdgeInsets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Extensions.swift"; sourceTree = "<group>"; };
 		6FB217AE2BBFA39C002FBA7F /* SignInCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCardView.swift; sourceTree = "<group>"; };
 		6FB217B02BBFA3E3002FBA7F /* Color+SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+SystemColors.swift"; sourceTree = "<group>"; };
+		6FB7A3712BC9D03D009837D0 /* UIReducer+General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIReducer+General.swift"; sourceTree = "<group>"; };
+		6FB7A3732BC9D090009837D0 /* UIReducer+LandingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIReducer+LandingScreen.swift"; sourceTree = "<group>"; };
+		6FB7A3752BC9D0CC009837D0 /* UIReducer+ColorWizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIReducer+ColorWizard.swift"; sourceTree = "<group>"; };
 		6FCAABBA2BC0F79000B25FE8 /* PulseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseView.swift; sourceTree = "<group>"; };
 		6FCAABBD2BC21C1000B25FE8 /* ColorWizardRoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardRoutesView.swift; sourceTree = "<group>"; };
 		6FCAABC02BC21CCD00B25FE8 /* ColorWizardConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardConfiguration.swift; sourceTree = "<group>"; };
@@ -136,6 +142,9 @@
 			children = (
 				6F1643DA2BB63A6200B9E90F /* AppReducer.swift */,
 				6FB217932BB76CAB002FBA7F /* UIReducer.swift */,
+				6FB7A3752BC9D0CC009837D0 /* UIReducer+ColorWizard.swift */,
+				6FB7A3712BC9D03D009837D0 /* UIReducer+General.swift */,
+				6FB7A3732BC9D090009837D0 /* UIReducer+LandingScreen.swift */,
 				6F1643DE2BB6409C00B9E90F /* UserReducer.swift */,
 			);
 			path = "Reducers+Actions";
@@ -475,6 +484,7 @@
 				6F319C9F2BBFD44800788B29 /* String+Extensions.swift in Sources */,
 				6FCAABC12BC21CCD00B25FE8 /* ColorWizardConfiguration.swift in Sources */,
 				6FB217A02BBF46DE002FBA7F /* BrightBorderedButtonStyle.swift in Sources */,
+				6FB7A3742BC9D090009837D0 /* UIReducer+LandingScreen.swift in Sources */,
 				6FB217AF2BBFA39C002FBA7F /* SignInCardView.swift in Sources */,
 				6FB217B12BBFA3E3002FBA7F /* Color+SystemColors.swift in Sources */,
 				6FB217992BBF406C002FBA7F /* LandingView.swift in Sources */,
@@ -482,6 +492,7 @@
 				6FB217922BB72865002FBA7F /* UserAuthMiddleware.swift in Sources */,
 				6F8F6F252BB52E7000658766 /* Redux+State.swift in Sources */,
 				6F4ADCE82BB52391001A8A13 /* AppRootView.swift in Sources */,
+				6FB7A3762BC9D0CC009837D0 /* UIReducer+ColorWizard.swift in Sources */,
 				6F1643DB2BB63A6200B9E90F /* AppReducer.swift in Sources */,
 				6F1643DF2BB6409C00B9E90F /* UserReducer.swift in Sources */,
 				6FB217A72BBF9D49002FBA7F /* CardView.swift in Sources */,
@@ -493,6 +504,7 @@
 				6FB217972BBE47A5002FBA7F /* UIMiddleware.swift in Sources */,
 				6F8F6F232BB52E5600658766 /* Redux.swift in Sources */,
 				6F319C9C2BBFD2B700788B29 /* ColorService.swift in Sources */,
+				6FB7A3722BC9D03D009837D0 /* UIReducer+General.swift in Sources */,
 				6FB217A92BBF9DB4002FBA7F /* VisualEffectView.swift in Sources */,
 				6FCAABC72BC21DA700B25FE8 /* ColorWizardColorView.swift in Sources */,
 				6FB2178F2BB7244D002FBA7F /* Redux+Store+Enviroment.swift in Sources */,
