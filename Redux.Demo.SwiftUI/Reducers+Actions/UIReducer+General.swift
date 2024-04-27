@@ -8,8 +8,17 @@
 import Foundation
 
 extension Actions.UIActions {
-  enum GeneralActions {
+  enum GeneralActions: Equatable {
     case presentFailedToSignInAlert(error: Error, username: String)
+    
+    static func == (lhs: GeneralActions, rhs: GeneralActions) -> Bool {
+      switch (lhs, rhs) {
+      case (.presentFailedToSignInAlert(let error1, let username1), .presentFailedToSignInAlert(let error2, let username2)):
+        return error1.localizedDescription == error2.localizedDescription && username1 == username2
+      default:
+        return false
+      }
+    }
   }
 }
 

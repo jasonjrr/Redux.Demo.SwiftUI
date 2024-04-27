@@ -19,7 +19,7 @@ class UserAuthMiddleware: Redux.Middleware {
     self.busyIndicatorService = busyIndicatorService
   }
   
-  func callAsFunction(action: Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult {
+  func callAsFunction(action: any Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult {
     guard let newAction = action as? Actions else {
       return .action(action)
     }

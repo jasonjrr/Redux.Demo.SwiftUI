@@ -8,7 +8,7 @@
 import Foundation
 
 extension Actions.UIActions {
-  enum LandingScreenActions {
+  enum LandingScreenActions: Equatable {
     case onSignInTapped
     case onSignOutTapped
     case onPulseTapped
@@ -17,6 +17,22 @@ extension Actions.UIActions {
     case dismissPulseView
     
     case setColorWizardState(UIState.ColorWizardState?)
+    
+    static func == (lhs: LandingScreenActions, rhs: LandingScreenActions) -> Bool {
+      switch (lhs, rhs) {
+      case (.onSignInTapped, .onSignInTapped),
+        (.onSignOutTapped, .onSignOutTapped),
+        (.onPulseTapped, .onPulseTapped),
+        (.onStartColorWizard, .onStartColorWizard),
+        (.dismissSignInModal, .dismissSignInModal),
+        (.dismissPulseView, .dismissPulseView):
+        return true
+      case (.setColorWizardState(let colorWizardState1), .setColorWizardState(let colorWizardState2)):
+        return colorWizardState1 == colorWizardState2
+      default:
+        return false
+      }
+    }
   }
 }
 

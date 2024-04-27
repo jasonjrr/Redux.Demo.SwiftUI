@@ -63,9 +63,9 @@ extension Redux.Store {
     await self.dispatch(action: await factory())
   }
   
-  func dispatch<Seq: AsyncSequence>(
-    sequence: Seq
-  ) async throws where Seq.Element == A {
+  func dispatch<Sequence: AsyncSequence>(
+    sequence: Sequence
+  ) async throws where Sequence.Element == A {
     for try await action in sequence {
       await dispatch(action: action)
     }
@@ -88,7 +88,9 @@ extension Redux.Store {
     }
   }
   
-  func dispatch<P: Publisher>(publisher: P) where P.Output == A, P.Failure == Never {
+  func dispatch<P: Publisher>(
+    publisher: P
+  ) where P.Output == A, P.Failure == Never {
     var subscription: AnyCancellable?
     subscription = publisher.sink { _ in
       if subscription != nil {

@@ -8,17 +8,28 @@
 import Foundation
 
 extension Redux {
-  public enum MiddlewareResult {
+  public enum MiddlewareResult: Equatable {
     case handled
-    case action(Action)
+    case action(any Redux.Action)
+    
+    public static func == (lhs: MiddlewareResult, rhs: MiddlewareResult) -> Bool {
+      switch (lhs, rhs) {
+      case (.handled, .handled):
+        return true
+      case (.action(let action1), .action(let action2)):
+        return action1.eraseToAnyAction() == action2.eraseToAnyAction()
+      default:
+        return false
+      }
+    }
   }
   
   public protocol Middleware {
-    func callAsFunction(action: Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult
+    func callAsFunction(action: any Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult
   }
   
   struct EchoMiddleware: Middleware {
-    public func callAsFunction(action: Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult {
+    public func callAsFunction(action: any Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult {
       .action(action)
     }
   }
@@ -34,8 +45,8 @@ extension Redux {
       self.middleware = middleware
     }
     
-    public func callAsFunction(action: Action, dispatcher: Redux.AnyStoreDispatcher) async -> MiddlewareResult {
-      var currentAction: Action = action
+    public func callAsFunction(action: any Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> MiddlewareResult {
+      var currentAction: any Redux.Action = action
       for m in middleware {
         let result = await m(action: currentAction, dispatcher: dispatcher)
         switch result {
