@@ -8,6 +8,12 @@
 import Foundation
 
 struct UIMiddleware: Redux.Middleware {
+  private let colorService: ColorService
+  
+  init(colorService: ColorService) {
+    self.colorService = colorService
+  }
+  
   func callAsFunction(action: any Redux.Action, dispatcher: Redux.AnyStoreDispatcher) async -> Redux.MiddlewareResult {
     guard let newAction = action as? Actions else {
       return .action(action)
@@ -33,21 +39,7 @@ struct UIMiddleware: Redux.Middleware {
         await dispatcher.dispatch(action: .user(.signOut))
         return .handled
       case .onStartColorWizard:
-        let config = ColorWizardConfiguration.mock()
-        let screens = config.pages.compactMap { page in
-          if let color = page.color {
-            return UIState.ColorWizardScreenState(title: page.title, data: .color(color))
-          } else if let colors = page.colors {
-            return UIState.ColorWizardScreenState(title: page.title, data: .summary(colors))
-          } else {
-            return nil
-          }
-        }
-        let colorWizardState = UIState.ColorWizardState(
-          screens: screens, currentScreenIndex: 0,
-          canMoveBack: false,
-          canMoveNext: screens.count > 1,
-          canFinish: screens.count == 1)
+        let colorWizardState = await self.colorService.fetchColorWizardState()
         await dispatcher.dispatch(action: Actions.uiAction(.landingScreen(.setColorWizardState(colorWizardState))))
         return .handled
       }

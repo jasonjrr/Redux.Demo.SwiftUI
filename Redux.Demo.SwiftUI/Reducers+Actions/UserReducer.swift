@@ -8,11 +8,26 @@
 import Foundation
 
 extension Actions {
-  enum UserActions {
+  enum UserActions: Equatable {
     case signIn(username: String, password: String)
     case setFailedToSignIn(error: Error, username: String, password: String)
     case signInSuccessful(username: String)
     case signOut
+    
+    static func == (lhs: UserActions, rhs: UserActions) -> Bool {
+      switch (lhs, rhs) {
+      case (.signIn(let username1, let password1), .signIn(let username2, let password2)):
+        return username1 == username2 && password1 == password2
+      case (.setFailedToSignIn(let error1, let username1, let password1), .setFailedToSignIn(let error2, let username2, let password2)):
+        return error1.localizedDescription == error2.localizedDescription && username1 == username2 && password1 == password2
+      case (.signInSuccessful(let username1), .signInSuccessful(let username2)):
+        return username1 == username2
+      case (.signOut, .signOut):
+        return true
+      default:
+        return false
+      }
+    }
   }
 }
 

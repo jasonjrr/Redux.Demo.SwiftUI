@@ -8,10 +8,19 @@
 import Foundation
 
 extension Actions.UIActions {
-  enum ColorWizardActions {
+  enum ColorWizardActions: Equatable {
     case onBack
     case onNext
     case onFinish
+    
+    static func == (lhs: ColorWizardActions, rhs: ColorWizardActions) -> Bool {
+      switch (lhs, rhs) {
+      case (.onBack, .onBack), (.onNext, .onNext), (.onFinish, .onFinish):
+        return true
+      default:
+        return false
+      }
+    }
   }
 }
 
@@ -91,42 +100,24 @@ extension UIState {
       if lhs.title != rhs.title {
         return false
       }
-      switch lhs.data {
-      case .color(let lhsColorModel):
-        switch rhs.data {
-        case .color(let rhsColorModel):
-          if lhsColorModel != rhsColorModel {
-            return false
-          }
-        default:
+      switch (lhs.data, rhs.data) {
+      case (.color(let lhsColorModel), .color(let rhsColorModel)):
+        if lhsColorModel != rhsColorModel {
           return false
         }
-      case .summary(let lhsColorModels):
-        switch rhs.data {
-        case .summary(let rhsColorModels):
-          if lhsColorModels != rhsColorModels {
-            return false
-          }
-        default:
+      case (.summary(let lhsColorModels), .summary(let rhsColorModels)):
+        if lhsColorModels != rhsColorModels {
           return false
         }
+      default:
+        return false
       }
-      
-      switch lhs.next {
-      case .none:
-        switch rhs.next {
-        case .none: break
-        default:
-          return false
-        }
-      case .push:
-        switch rhs.next {
-        case .none:
-          return false
-        case .push: break
-        }
+      switch (lhs.next, rhs.next) {
+      case (.none, .none): break
+      case (.push, .push): break
+      default:
+        return false
       }
-      
       return true
     }
   }
@@ -135,11 +126,11 @@ extension UIState {
 extension UIReducer {
   enum ColorWizardReducer {
     static func reduce(_ state: UIState.ColorWizardState?, action: Actions.UIActions.ColorWizardActions) -> UIState.ColorWizardState? {
+      guard var state else {
+        return nil
+      }
       switch action {
       case .onBack:
-        guard var state else {
-          return nil
-        }
         guard state.currentScreenIndex > 0 else {
           return state
         }
@@ -151,9 +142,6 @@ extension UIReducer {
         return state
         
       case .onNext:
-        guard var state else {
-          return nil
-        }
         guard state.currentScreenIndex + 1 < state.screens.count else {
           return state
         }

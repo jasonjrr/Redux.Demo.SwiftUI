@@ -11,13 +11,24 @@ import Foundation
 enum Actions: Redux.Action {
   case uiAction(Actions.UIActions)
   case userAction(Actions.UserActions)
+  
+  static func == (lhs: Actions, rhs: Actions) -> Bool {
+    switch (lhs, rhs) {
+    case (.uiAction(let action1), .uiAction(let action2)):
+      return action1 == action2
+    case (.userAction(let action1), .userAction(let action2)):
+      return action1 == action2
+    default:
+      return false
+    }
+  }
 }
 
 extension Redux.Action where Self == Actions {
-  static func ui(_ action: Actions.UIActions) -> Redux.Action {
+  static func ui(_ action: Actions.UIActions) -> any Redux.Action {
     Actions.uiAction(action)
   }
-  static func user(_ action: Actions.UserActions) -> Redux.Action {
+  static func user(_ action: Actions.UserActions) -> any Redux.Action {
     Actions.userAction(action)
   }
 }

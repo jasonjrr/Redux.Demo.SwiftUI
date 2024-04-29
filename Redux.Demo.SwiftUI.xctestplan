@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "B9F60465-4EBF-4EA1-AD5C-E505F3726DFC",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Redux.Demo.SwiftUI.xcodeproj",
+      "identifier" : "6F4ADCE12BB52391001A8A13",
+      "name" : "Redux.Demo.SwiftUI"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Redux.Demo.SwiftUI.xcodeproj",
+        "identifier" : "6F4ADCF12BB52392001A8A13",
+        "name" : "Redux.Demo.SwiftUITests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Redux.Demo.SwiftUI.xcodeproj",
+        "identifier" : "6F4ADCFB2BB52392001A8A13",
+        "name" : "Redux.Demo.SwiftUIUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

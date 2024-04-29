@@ -23,7 +23,7 @@ struct AppDependencyContainerView<Content: View>: View {
     AppReducer.reduce(state, action: action)
   } middleware: {
     UserAuthMiddleware(busyIndicatorService: busyIndicatorService)
-    UIMiddleware()
+    UIMiddleware(colorService: colorService)
   }
   
   private let content: () -> Content

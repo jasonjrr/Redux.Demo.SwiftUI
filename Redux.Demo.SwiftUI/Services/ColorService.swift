@@ -41,12 +41,13 @@ extension ColorModel {
 
 protocol ColorServiceProtocol: ObservableObject {
   func getNextColor() -> ColorModel
-  func generateColors(runLoop: RunLoop) -> AnyPublisher<ColorModel, Never>
+  func generateColors(every timeInterval: TimeInterval, on runLoop: RunLoop) -> AnyPublisher<ColorModel, Never>
+  func fetchColorWizardState() async -> UIState.ColorWizardState
 }
 
 extension ColorServiceProtocol {
-  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
-    generateColors(runLoop: runLoop)
+  func generateColors(every timeInterval: TimeInterval = 1.0, on runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
+    generateColors(every: timeInterval, on: runLoop)
   }
 }
 
@@ -68,8 +69,8 @@ class ColorService: ColorServiceProtocol {
     }
   }
   
-  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
-    return Timer.publish(every: 1.0, on: runLoop, in: .default)
+  func generateColors(every timeInterval: TimeInterval = 1.0, on runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
+    return Timer.publish(every: timeInterval, on: runLoop, in: .default)
       .autoconnect()
       .map { timer in
         let selection = Int(timer.timeIntervalSince1970 * 1.5) % 7
@@ -85,5 +86,23 @@ class ColorService: ColorServiceProtocol {
         }
       }
       .eraseToAnyPublisher()
+  }
+  
+  func fetchColorWizardState() async -> UIState.ColorWizardState {
+    let config = ColorWizardConfiguration.mock()
+    let screens = config.pages.compactMap { page in
+      if let color = page.color {
+        return UIState.ColorWizardScreenState(title: page.title, data: .color(color))
+      } else if let colors = page.colors {
+        return UIState.ColorWizardScreenState(title: page.title, data: .summary(colors))
+      } else {
+        return nil
+      }
+    }
+    return UIState.ColorWizardState(
+      screens: screens, currentScreenIndex: 0,
+      canMoveBack: false,
+      canMoveNext: screens.count > 1,
+      canFinish: screens.count == 1)
   }
 }
