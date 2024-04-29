@@ -10,12 +10,14 @@ import XCTest
 
 class UIMiddlewareTest: XCTestCase {
   var actionsCache: ActionsCacheReducer!
+  var colorService: ColorService!
   var store: AppReduxStore!
   var subject: UIMiddleware!
   
   override func setUp() async throws {
     try await super.setUp()
-    self.subject = UIMiddleware()
+    self.colorService = ColorService()
+    self.subject = UIMiddleware(colorService: self.colorService)
     self.actionsCache = ActionsCacheReducer()
     self.store = AppReduxStore { [weak actionsCache] state, action in
       actionsCache?.append(action)

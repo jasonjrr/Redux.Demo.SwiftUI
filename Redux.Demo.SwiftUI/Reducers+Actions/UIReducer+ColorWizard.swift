@@ -126,11 +126,11 @@ extension UIState {
 extension UIReducer {
   enum ColorWizardReducer {
     static func reduce(_ state: UIState.ColorWizardState?, action: Actions.UIActions.ColorWizardActions) -> UIState.ColorWizardState? {
+      guard var state else {
+        return nil
+      }
       switch action {
       case .onBack:
-        guard var state else {
-          return nil
-        }
         guard state.currentScreenIndex > 0 else {
           return state
         }
@@ -142,9 +142,6 @@ extension UIReducer {
         return state
         
       case .onNext:
-        guard var state else {
-          return nil
-        }
         guard state.currentScreenIndex + 1 < state.screens.count else {
           return state
         }

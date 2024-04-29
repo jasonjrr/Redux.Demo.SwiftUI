@@ -42,6 +42,7 @@ extension ColorModel {
 protocol ColorServiceProtocol: ObservableObject {
   func getNextColor() -> ColorModel
   func generateColors(every timeInterval: TimeInterval, on runLoop: RunLoop) -> AnyPublisher<ColorModel, Never>
+  func fetchColorWizardState() async -> UIState.ColorWizardState
 }
 
 extension ColorServiceProtocol {
@@ -85,5 +86,23 @@ class ColorService: ColorServiceProtocol {
         }
       }
       .eraseToAnyPublisher()
+  }
+  
+  func fetchColorWizardState() async -> UIState.ColorWizardState {
+    let config = ColorWizardConfiguration.mock()
+    let screens = config.pages.compactMap { page in
+      if let color = page.color {
+        return UIState.ColorWizardScreenState(title: page.title, data: .color(color))
+      } else if let colors = page.colors {
+        return UIState.ColorWizardScreenState(title: page.title, data: .summary(colors))
+      } else {
+        return nil
+      }
+    }
+    return UIState.ColorWizardState(
+      screens: screens, currentScreenIndex: 0,
+      canMoveBack: false,
+      canMoveNext: screens.count > 1,
+      canFinish: screens.count == 1)
   }
 }
